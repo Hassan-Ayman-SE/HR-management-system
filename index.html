@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Home Page</title>
+    <style>
+        body {
+            margin: 0px;
+            height: 100vh;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo {
+            display: flex;
+            align-items: center;
+        }
+
+        #logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        #logo h1 {
+            font-size: 24px;
+            margin: 0;
+            color: white;
+        }
+
+        #headerButtons {
+            display: flex;
+        }
+
+        #headerButtons button {
+            margin-left: 10px;
+            background-color: #fff;
+            color: #333;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #headerButtons button:hover {
+            background-color: #ddd;
+        }
+
+        img{
+            width: 20%;
+            height: 40%;
+        }
+        table {
+            width: 70%;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        table th,
+        table td {
+            padding: 10px;
+        }
+
+        table thead {
+            color: black;
+        }
+
+        footer {
+            margin-top: auto;
+            background-color: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #socialMediaLinks a img {
+            display: inline-block;
+            margin-right: 10px;
+            width: 50px;
+            height: 50px;
+        }
+
+        .wrap {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        #headerButtons a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrap">
+
+        <header>
+            <!-- Icon and Title -->
+            <div id="logo">
+                <img src="images/hr.png" alt="Hr">
+                <h1>HR-Management-System</h1>
+            </div>
+
+            <!-- Buttons -->
+            <div id="headerButtons">
+                <button id="button1"><a href="index.html">Home</a></button>
+                <button id="button2"><a href="accounting.html">Accounting</a></button>
+            </div>
+        </header>
+        <main>
+            <table border="1">
+                <thead>
+                    <tr>
+
+                        <th>Employee ID</th>
+                        <th>Full Name</th>
+                        <th>Department</th>
+                        <th>Level</th>
+                        <th>Image Url</th>
+                        <th>Net Salary</th>
+                        <th>Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </main>
+
+        <footer>
+            <div id="socialMediaLinks">
+                <!-- Add your social media links here -->
+
+                <a href="facebook"><img src="images/facebook.png" alt="Facebook"></a>
+                <a href="instagram"><img src="images/instagram.png" alt="Instagram"></a>
+                <a href="x"><img src="images/x.png" alt="X"></a>
+            </div>
+            <p>&copy; 2024 Hassan Ayman. All rights reserved.</p>
+        </footer>
+
+    </div>
+    <script src="app.js"></script>
+
+</body>
+
+</html>
