@@ -55,8 +55,8 @@
 
         img {
             width: 20%;
-            height: 40%;
         }
+
         table {
             width: 70%;
             margin: 20px auto;
@@ -95,6 +95,71 @@
         #headerButtons a {
             text-decoration: none;
         }
+
+        form {
+            width: 70%;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+
+
+        legend {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .my-card {
+            text-align: center;
+            /* margin-bottom: 10px; */
+            border-radius: 15px;
+            margin: 20px;
+            padding: 10px;
+            background-color: #333;
+            width: max-content;
+        }
+
+        .my-card img {
+            width: 200px;
+            margin: 0 auto;
+        }
+
+        .card-content p {
+            color: white;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: 500;
+            margin: 10px 0px;
+        }
+
+        .employees {
+            display: inline-block;
+        }
     </style>
 </head>
 
@@ -116,23 +181,41 @@
             </div>
         </header>
         <main>
-            <table border="1">
-                <thead>
-                    <tr>
+            <section>
+                <form>
+                    <fieldset>
+                        <legend>New Employee</legend>
+                        <label for="fullname">Full Name:</label>
+                        <input type="text" id="fullname" name="fullname" required>
+                        <br>
 
-                        <th>Employee ID</th>
-                        <th>Full Name</th>
-                        <th>Department</th>
-                        <th>Level</th>
-                        <th>Image Url</th>
-                        <th>Net Salary</th>
-                        <th>Salary</th>
-                    </tr>
-                </thead>
-                <tbody>
+                        <label for="department">Department:</label>
+                        <select id="department" name="department" required>
+                            <option value="Administration">Administration</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Development">Development</option>
+                            <option value="Finance">Finance</option>
+                        </select>
+                        <br>
 
-                </tbody>
-            </table>
+                        <label for="level">Level:</label>
+                        <select id="level" name="level" required>
+                            <option value="Junior">Junior</option>
+                            <option value="Mid-Senior">Mid-Senior</option>
+                            <option value="Senior">Senior</option>
+                        </select>
+                        <br>
+
+                        <label for="imageurl">Image URL:</label>
+                        <input type="text" id="imageurl" name="imageurl" required>
+                        <br>
+
+                        <input type="submit" name="Submit" value="Submit">
+
+                    </fieldset>
+                </form>
+            </section>
+
         </main>
 
         <footer>
