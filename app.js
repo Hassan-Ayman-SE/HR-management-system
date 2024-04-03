@@ -26,19 +26,19 @@ function generateRandomSalary(level) {
   return Math.floor(Math.random() * (maxSalary - minSalary + 1) + minSalary);
 }
 
-class Employee{
-    constructor(fullName, department, level, imageUrl) {
-        this.id = generateAUniqueId();
-        this.fullName = fullName;
-        this.department = department;
-        this.level = level;
-        this.imageUrl = imageUrl;
-        this.salary = generateRandomSalary(level);
-        employees.push(this);
-    }
+class Employee {
+  constructor(fullName, department, level, imageUrl) {
+    this.id = generateAUniqueId();
+    this.fullName = fullName;
+    this.department = department;
+    this.level = level;
+    this.imageUrl = imageUrl;
+    this.salary = generateRandomSalary(level);
+    employees.push(this);
+  }
 }
 
-Employee.prototype.calculateSalary = function() {
+Employee.prototype.calculateSalary = function () {
   const taxPercent = 7.5;
   const taxAmount = (this.salary * taxPercent) / 100;
   const netSalary = this.salary - taxAmount;
@@ -46,7 +46,7 @@ Employee.prototype.calculateSalary = function() {
   return netSalary;
 };
 
-Employee.prototype.render = function() {
+Employee.prototype.render = function () {
   let cardDiv = document.createElement("div");
   cardDiv.classList.add("my-card");
   cardDiv.innerHTML = `
@@ -57,7 +57,7 @@ Employee.prototype.render = function() {
       <p>${this.calculateSalary()}</p>
     </div>
   `;
-  
+
   let departmentSection = document.getElementById(this.department);
   console.log(departmentSection);
   if (departmentSection) {
@@ -74,11 +74,40 @@ Employee.prototype.render = function() {
   }
 };
 
+// Save data to local storage
+function saveData(employee) {
+
+  if (localStorage.getItem("employees") == null) {
+    localStorage.setItem("employees", JSON.stringify([]));
+  }
+
+  let employees = JSON.parse(localStorage.getItem("employees"));
+
+  if (!employees.map(emp => emp.id).includes(employee.id)) {
+    employees.push(employee);
+    localStorage.setItem("employees", JSON.stringify(employees));
+  }
+}
+
 function renderEmployees() {
   employees.forEach((emp) => {
     emp.render();
+    saveData(emp);
   });
+  
 }
+
+// function getData(){
+//   let retrievedData = localStorage.getItem("employees");
+//   let arrayData = JSON.parse(retrievedData);
+//   if(arrayData != null){
+//       for(let i = 0; i < arrayData.length;i++){
+//           new Employee(arrayData[i].fullName,arrayData[i].department,arrayData[i].level,arrayData[i].imageUrl);
+//           employees[i].render();
+//       }
+//   }
+
+// }
 
 const empForm = document.getElementById("empForm");
 empForm.addEventListener('submit', addNewEmpHandler);
@@ -93,6 +122,7 @@ function addNewEmpHandler(event) {
 
   const newEmp = new Employee(fullName, department, level, imageUrl);
   newEmp.render();
+  saveData(newEmp);
 }
 
 // Employees Object
@@ -103,5 +133,4 @@ new Employee("Safi Walid", "Administration", "Mid-Senior", "https://cdn-icons-pn
 new Employee("Omar Zaid", "Development", "Senior", "https://cdn-icons-png.flaticon.com/128/3001/3001764.png");
 new Employee("Rana Saleh", "Development", "Junior", "https://cdn-icons-png.flaticon.com/128/4140/4140047.png");
 new Employee("Hadi Ahmad", "Finance", "Mid-Senior", "https://cdn-icons-png.flaticon.com/128/4202/4202831.png");
-
 renderEmployees();
