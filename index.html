@@ -157,8 +157,23 @@
             margin: 10px 0px;
         }
 
-        .employees {
-            display: inline-block;
+        .employees-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .heading-section {
+            text-align: center;
+            font-size: larger;
+            font-family: 'Times New Roman', Times, serif;
+            padding: 10px;
+            margin: 10px;
+            letter-spacing: 0.1cm;
+            background-color: #333;
+            color: #ffffff;
+
         }
     </style>
 </head>
@@ -176,8 +191,8 @@
 
             <!-- Buttons -->
             <div id="headerButtons">
-                <button id="button1"><a href="index.html">Home</a></button>
-                <button id="button2"><a href="accounting.html">Accounting</a></button>
+                <!-- <button id="button1" onclick="goToHome()"><a href="index.html">Home</a></button> -->
+                <button id="button2" onclick="goToAccounting()">Accounting</button>
             </div>
         </header>
         <main>
@@ -231,6 +246,11 @@
 
     </div>
     <script src="app.js"></script>
+    <script>
+      function goToAccounting(){
+        window.location.href = 'accounting.html';
+      } 
+    </script>
 
 </body>
 

@@ -65,10 +65,11 @@ Employee.prototype.render = function () {
   } else {
     let deptSection = document.createElement("section");
     deptSection.id = this.department;
-    deptSection.classList.add("employees");
+    deptSection.classList.add("employees-section");
     let deptHeading = document.createElement("h2");
+    deptHeading.classList.add("heading-section");
     deptHeading.textContent = this.department;
-    deptSection.appendChild(deptHeading);
+    main.appendChild(deptHeading);
     deptSection.appendChild(cardDiv);
     main.appendChild(deptSection);
   }

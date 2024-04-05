@@ -18,6 +18,10 @@ class Department {
         this.numberOfEmployees++;
     }
 }
+
+function goToHome(){
+    window.location.href = 'index.html';
+  } 
 let emps = JSON.parse(localStorage.getItem("employees"));
 emps.forEach(emp => {
     if (!depts.map(dept => dept.name).includes(emp.department)) {
@@ -34,7 +38,7 @@ let tableEl = document.createElement("table");
 let tableHeadEl = document.createElement("thead");
 
 tableHeadEl.innerHTML = `
-<tr>
+<tr class ="row-style">
     <th>Department Name</th>
     <th>Number Of Employees</th>
     <th>Average Salary</th>
@@ -64,11 +68,11 @@ tableEl.appendChild(tBody);
 
 let tFoot = document.createElement("tfoot");
 tFoot.innerHTML = `
-<tr>
+<tr class ="row-style">
         <td>Total:</td>
         <td>${emps.length}</td>
-        <td>${allDepartmentsAverageSalaries}</td>
-        <td>${allDepartmentsSalaries}</td>
+        <td>${allDepartmentsAverageSalaries.toFixed(3)}</td>
+        <td>${allDepartmentsSalaries.toFixed(3)}</td>
     </tr>
 `;
 tableEl.appendChild(tFoot);
