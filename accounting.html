@@ -95,6 +95,11 @@
         #headerButtons a {
             text-decoration: none;
         }
+        .row-style{
+            background-color: #333;
+            color: white;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -111,8 +116,8 @@
 
             <!-- Buttons -->
             <div id="headerButtons">
-                <button id="button1"><a href="index.html">Home</a></button>
-                <button id="button2"><a href="accounting.html">Accounting</a></button>
+                <button id="button1" onclick="goToHome()">Home</button>
+                <!-- <button id="button2"><a href="accounting.html">Accounting</a></button> -->
             </div>
         </header>
         <main>
@@ -131,7 +136,9 @@
         </footer>
 
     </div>
-    <script src="accounting.js"></script>
+    <script src="accounting.js">
+    </script>
+  
 </body>
 
 </html>
