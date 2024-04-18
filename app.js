@@ -1,137 +1,190 @@
-let main = document.querySelector('main');
+
 let employees = [];
 
-function generateAUniqueId() {
-  return 1000 + employees.length;
+class Employee {
+  constructor(fullName, imageUrl, department, level) {
+
+    this.id = idGenerator();
+    this.fullName = fullName;
+    this.imageUrl = imageUrl;
+    this.department = department;
+    this.level = level;
+    this.salary = this.calculateEmployeeNetSalary;
+    employees.push(this);
+
+  }
 }
 
-function generateRandomSalary(level) {
-  let minSalary, maxSalary;
 
-  switch (level) {
-    case "Senior":
-      minSalary = 1500;
-      maxSalary = 2000;
+
+let formElement = document.getElementById('empForm');
+
+formElement.addEventListener('submit', onsubmitListener);
+
+function onsubmitListener(event) {
+
+  event.preventDefault();
+
+
+  let fullName = event.target.fullname.value;
+  let department = event.target.department.value;
+  let level = event.target.level.value;
+  let imageUrl = event.target.imageurl.value;
+
+
+
+  let newEmployee = new Employee(fullName, imageUrl, department, level);
+  newEmployee.calculateEmployeeNetSalary();
+
+  newEmployee.renderEmployeeData();
+
+  saveEmployeesData(employees);
+
+
+}
+
+
+Employee.prototype.renderEmployeeData = function () {
+
+  let card = document.createElement('div');
+
+  card.classList.add('card');
+
+  let imageElement = document.createElement('img');
+  let nameAndIdElement = document.createElement('h2');
+  let departmentAndLevel = document.createElement('h2');
+  let salary = document.createElement('h2');
+
+  imageElement.src = this.imageUrl;
+  nameAndIdElement.textContent = `Name: ${this.fullName} - ID: ${this.id}`;
+  departmentAndLevel.textContent = `Department: ${this.department} - Level: ${this.level}`;
+  salary.textContent = this.salary;
+
+  card.appendChild(imageElement);
+  card.appendChild(nameAndIdElement);
+  card.appendChild(departmentAndLevel);
+  card.appendChild(salary);
+
+  let departmentSection = document.getElementById(this.department);
+
+  if (departmentSection !== null) {
+
+    document.getElementById(this.department).appendChild(card);
+
+  } else {
+
+    let newDepartmentSection = document.createElement('section');
+    newDepartmentSection.id = this.department;
+    newDepartmentSection.classList.add('cardsContainer');
+    let sectionName = document.createElement('h1');
+
+    sectionName.textContent = this.department;
+    sectionName.classList.add('sectionName');
+
+    document.getElementById('container').appendChild(sectionName);
+    newDepartmentSection.appendChild(card);
+    document.getElementById('container').appendChild(newDepartmentSection);
+
+
+  }
+
+
+
+}
+
+Employee.prototype.calculateEmployeeNetSalary = function () {
+
+  let minSalary, maxSalary;
+  const taxPercent = 7.5;
+
+  switch (this.level) {
+
+
+    case "Junior":
+      minSalary = 500;
+      maxSalary = 1000;
       break;
     case "Mid-Senior":
       minSalary = 1000;
       maxSalary = 1500;
       break;
-    case "Junior":
-      minSalary = 500;
-      maxSalary = 1000;
+    case "Senior":
+      minSalary = 1500;
+      maxSalary = 2000;
       break;
   }
 
-  return Math.floor(Math.random() * (maxSalary - minSalary + 1) + minSalary);
+  this.salary = Math.floor(Math.random() * (maxSalary - minSalary + 1) + minSalary);
+
+  let taxtAmount = (taxPercent * this.salary) / 100;
+
+  return this.salary - taxtAmount; // this is the net salary
+
 }
 
-class Employee {
-  constructor(fullName, department, level, imageUrl) {
-    this.id = generateAUniqueId();
-    this.fullName = fullName;
-    this.department = department;
-    this.level = level;
-    this.imageUrl = imageUrl;
-    this.salary = generateRandomSalary(level);
-    employees.push(this);
-  }
-}
 
-Employee.prototype.calculateSalary = function () {
-  const taxPercent = 7.5;
-  const taxAmount = (this.salary * taxPercent) / 100;
-  const netSalary = this.salary - taxAmount;
+function idGenerator() {
 
-  return netSalary;
-};
+  return `${Math.floor(Math.random() * 900) + 100}${employees.length}`;
 
-Employee.prototype.render = function () {
-  let cardDiv = document.createElement("div");
-  cardDiv.classList.add("my-card");
-  cardDiv.innerHTML = `
-    <img src="${this.imageUrl}">
-    <div class="card-content">
-      <p>Name: ${this.fullName} - ID: ${this.id}</p>
-      <p>Department: ${this.department} - Level: ${this.level}</p>
-      <p>${this.calculateSalary()}</p>
-    </div>
-  `;
-
-  let departmentSection = document.getElementById(this.department);
-  console.log(departmentSection);
-  if (departmentSection) {
-    departmentSection.appendChild(cardDiv);
-  } else {
-    let deptSection = document.createElement("section");
-    deptSection.id = this.department;
-    deptSection.classList.add("employees-section");
-    let deptHeading = document.createElement("h2");
-    deptHeading.classList.add("heading-section");
-    deptHeading.textContent = this.department;
-    main.appendChild(deptHeading);
-    deptSection.appendChild(cardDiv);
-    main.appendChild(deptSection);
-  }
-};
-
-// Save data to local storage
-function saveData(employee) {
-
-  if (localStorage.getItem("employees") == null) {
-    localStorage.setItem("employees", JSON.stringify([]));
-  }
-
-  let employees = JSON.parse(localStorage.getItem("employees"));
-
-  if (!employees.map(emp => emp.id).includes(employee.id)) {
-    employees.push(employee);
-    localStorage.setItem("employees", JSON.stringify(employees));
-  }
 }
 
 function renderEmployees() {
+
   employees.forEach((emp) => {
-    emp.render();
-    saveData(emp);
+    let fname = emp.fullName.split(' ')[0];
+
+    emp.calculateEmployeeNetSalary();
+
+    emp.imageUrl = `assets/${fname}.jpg`;
+    emp.renderEmployeeData();
   });
-  
 }
 
-// function getData(){
-//   let retrievedData = localStorage.getItem("employees");
-//   let arrayData = JSON.parse(retrievedData);
-//   if(arrayData != null){
-//       for(let i = 0; i < arrayData.length;i++){
-//           new Employee(arrayData[i].fullName,arrayData[i].department,arrayData[i].level,arrayData[i].imageUrl);
-//           employees[i].render();
-//       }
-//   }
+getEmployeesData();
 
-// }
+if (employees.length == 0) {
 
-const empForm = document.getElementById("empForm");
-empForm.addEventListener('submit', addNewEmpHandler);
+  // Employees Object
+  new Employee("Lana Ali", " ", "Finance", "Senior");
+  new Employee("Tamara Ayoub", " ", "Marketing", "Senior");
+  new Employee("Safi Walid", " ", "Administration", "Mid-Senior");
+  new Employee("Omar Zaid", " ", "Development", "Senior");
+  new Employee("Rana Saleh", " ", "Development", "Junior");
+  new Employee("Hadi Ahmad", " ", "Finance", "Mid-Senior");
 
-function addNewEmpHandler(event) {
-  event.preventDefault();
 
-  const fullName = event.target.fullname.value;
-  const department = event.target.department.value;
-  const level = event.target.level.value;
-  const imageUrl = event.target.imageurl.value;
+  renderEmployees();
 
-  const newEmp = new Employee(fullName, department, level, imageUrl);
-  newEmp.render();
-  saveData(newEmp);
 }
 
-// Employees Object
-new Employee("Ghazi Samer", "Administration", "Senior", "https://cdn-icons-png.flaticon.com/128/4140/4140048.png");
-new Employee("Lana Ali", "Finance", "Senior", "https://cdn-icons-png.flaticon.com/128/4140/4140047.png");
-new Employee("Tamara Ayoub", "Marketing", "Senior", "https://cdn-icons-png.flaticon.com/128/4140/4140051.png");
-new Employee("Safi Walid", "Administration", "Mid-Senior", "https://cdn-icons-png.flaticon.com/128/4139/4139981.png");
-new Employee("Omar Zaid", "Development", "Senior", "https://cdn-icons-png.flaticon.com/128/3001/3001764.png");
-new Employee("Rana Saleh", "Development", "Junior", "https://cdn-icons-png.flaticon.com/128/4140/4140047.png");
-new Employee("Hadi Ahmad", "Finance", "Mid-Senior", "https://cdn-icons-png.flaticon.com/128/4202/4202831.png");
-renderEmployees();
+
+function saveEmployeesData(data) {
+
+  let StringifyedData = JSON.stringify(data);
+
+  localStorage.setItem("employeesData", StringifyedData);
+
+}
+
+function getEmployeesData() {
+
+  let data = localStorage.getItem("employeesData");
+  let parsedData = JSON.parse(data);
+
+  if (parsedData != null) {
+
+
+    //re-instantiation.
+    for (let i = 0; i < parsedData.length; i++) {
+
+      new Employee(parsedData[i].fullName, parsedData[i].imageUrl, parsedData[i].department, parsedData[i].level);
+
+      employees[i].calculateEmployeeNetSalary();
+      employees[i].renderEmployeeData();
+
+    }
+  }
+
+
+}

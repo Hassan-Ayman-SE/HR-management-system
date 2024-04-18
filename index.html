@@ -135,44 +135,53 @@
             background-color: #45a049;
         }
 
-        .my-card {
-            text-align: center;
-            /* margin-bottom: 10px; */
-            border-radius: 15px;
-            margin: 20px;
-            padding: 10px;
-            background-color: #333;
-            width: max-content;
-        }
-
-        .my-card img {
+        .card {
             width: 200px;
-            margin: 0 auto;
-        }
-
-        .card-content p {
-            color: white;
-            font-family: 'Times New Roman', Times, serif;
-            font-weight: 500;
-            margin: 10px 0px;
-        }
-
-        .employees-section {
+            height: 250px;
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px;
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             justify-content: center;
-            gap: 20px;
+            align-items: center;
+            text-align: center;
         }
 
-        .heading-section {
+        .card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 30px;
+        }
+
+        .card h2 {
+            margin: 5px;
+            font-size: 14px;
+            color: white;
+        }
+
+        .sectionName {
+
             text-align: center;
             font-size: larger;
-            font-family: 'Times New Roman', Times, serif;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             padding: 10px;
             margin: 10px;
             letter-spacing: 0.1cm;
             background-color: #333;
             color: #ffffff;
+
+        }
+
+        .cardsContainer {
+
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
 
         }
     </style>
@@ -195,41 +204,41 @@
                 <button id="button2" onclick="goToAccounting()">Accounting</button>
             </div>
         </header>
-        <main>
-            <section>
-                <form id="empForm">
-                    <fieldset>
-                        <legend>New Employee</legend>
-                        <label for="fullname">Full Name:</label>
-                        <input type="text" id="fullname" name="fullname" required>
-                        <br>
+        <main id="container">
 
-                        <label for="department">Department:</label>
-                        <select id="department" name="department" required>
-                            <option value="Administration">Administration</option>
-                            <option value="Marketing">Marketing</option>
-                            <option value="Development">Development</option>
-                            <option value="Finance">Finance</option>
-                        </select>
-                        <br>
+            <form id="empForm">
+                <fieldset>
+                    <legend>New Employee</legend>
+                    <label for="fullname">Full Name:</label>
+                    <input type="text" id="fullname" name="fullname" required>
+                    <br>
 
-                        <label for="level">Level:</label>
-                        <select id="level" name="level" required>
-                            <option value="Junior">Junior</option>
-                            <option value="Mid-Senior">Mid-Senior</option>
-                            <option value="Senior">Senior</option>
-                        </select>
-                        <br>
+                    <label for="department">Department:</label>
+                    <select id="department" name="department" required>
+                        <option value="Administration">Administration</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Development">Development</option>
+                        <option value="Finance">Finance</option>
+                    </select>
+                    <br>
 
-                        <label for="imageurl">Image URL:</label>
-                        <input type="text" id="imageurl" name="imageurl" required>
-                        <br>
+                    <label for="level">Level:</label>
+                    <select id="level" name="level" required>
+                        <option value="Junior">Junior</option>
+                        <option value="Mid-Senior">Mid-Senior</option>
+                        <option value="Senior">Senior</option>
+                    </select>
+                    <br>
 
-                        <input type="submit" name="Submit" value="Submit">
+                    <label for="imageurl">Image URL:</label>
+                    <input type="text" id="imageurl" name="imageurl" required>
+                    <br>
 
-                    </fieldset>
-                </form>
-            </section>
+                    <input type="submit" name="Submit" value="Submit">
+
+                </fieldset>
+            </form>
+
 
         </main>
 
@@ -247,9 +256,9 @@
     </div>
     <script src="app.js"></script>
     <script>
-      function goToAccounting(){
-        window.location.href = 'accounting.html';
-      } 
+        function goToAccounting() {
+            window.location.href = 'accounting.html';
+        } 
     </script>
 
 </body>
