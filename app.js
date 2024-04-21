@@ -167,6 +167,13 @@ function saveEmployeesData(data) {
 
 }
 
+function addPredefindEmployeesObjects() {
+  let dataOnLocalStorage = localStorage.getItem("employeesData");
+  if (dataOnLocalStorage == null) {
+    saveEmployeesData(employees);
+  }
+}
+
 function getEmployeesData() {
 
   let data = localStorage.getItem("employeesData");
@@ -188,3 +195,5 @@ function getEmployeesData() {
 
 
 }
+
+addPredefindEmployeesObjects();
